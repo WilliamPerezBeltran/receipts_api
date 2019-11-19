@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -11,5 +13,5 @@
 #
 
 class User < ApplicationRecord
-	has_secure_password
+  has_secure_password
 end
