@@ -10,11 +10,15 @@ class RegistrationsController < ApplicationController
 	end
 
 	def delete
+		# binding.pry
+
 		@user = User.find(params[:id])
 		@user.destroy
+		render json: {status: :ok, msg:"Usuario eliminado correctamente"}
 	end
 
 	def update
+		binding.pry
 		@user = User.find_by(email: params[:email])
 		if @user.update(user_params)
 			render json: {status: :ok, msg:"Usuario actualizado"}
