@@ -10,17 +10,33 @@ class RegistrationsController < ApplicationController
 	end
 
 	def delete
+		# binding.pry
+
 		@user = User.find(params[:id])
 		@user.destroy
+		render json: {status: :ok, msg:"Usuario eliminado correctamente"}
 	end
 
 	def update
-		@user = User.find_by(email: params[:email])
-		if @user.update(user_params)
-			render json: {status: :ok, msg:"Usuario actualizado"}
-		else
-			render json: {status: false, msg:"Error en la petición"}
+		begin
+			@user = User.find_by(email: params[:email])
+			if @user.update(name:params[:name])
+
+			else
+				render json: {status: false, msg:"Error en la petición"}
+			end
+		rescue Exception => error
+			render json: {
+				error: error, 
+				status: false, 
+				msg:"Error en la petición"
+			}
 		end
+
+
+
+
+		
 
 	end
 
