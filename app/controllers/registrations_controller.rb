@@ -12,8 +12,6 @@ class RegistrationsController < ApplicationController
   end
 
   def delete
-    # binding.pry
-
     @user = User.find(params[:id])
     @user.destroy
     render json: { status: :ok, msg: 'Usuario eliminado correctamente' }
