@@ -7,38 +7,24 @@ class ReceiptsController < ApplicationController
   end
 
   def create
+
+
     @receipt = Receipt.new(receipt_params)
+    if @receipt.save
+      #pago anticipado
+      payment = Payment.find_by(name: params[:pago_name]) 
+      @receipt.payment = payment 
 
-    # company = Company.find(params[:receipt][:company_id])
-    params[:receipt][:user_id] = current_user.id
-    # params[:receipt][:company_id] = company
-    if !params[:receipt][:payment_id].nil?
-      # payment = Payment.find(params[:receipt][:payment_id])
-      # params[:receipt][:payment_id] = payment
-      # params[:receipt][:refund_id] = nil if params[:receipt][:refund_id] = ""
+      render json: @receipt, status: :ok
     else
-      puts 'entro aca '
-      # payment = Refund.find_by(name: params[:receipt][:payment_id])
-      # params[:receipt][:payment_id] = payment
-      # params[:receipt][:refund_id] = nil
-
+      render json: { error: @receipt.errors }, status: :bad_request
     end
-
-    # binding.pry
-
-    if @receipt.save!
-      render json: {
-        msg: 'recibo guardado satisfactoriamente',
-        status: :ok
-
-      }
-
-    end
+  
   end
 
   private
 
   def receipt_params
-    params.require(:receipt).permit(:pay, :debt, :company_id, :user_id, :number, :status, :payment_id, :date, :refund_id)
+    params.require(:receipt).permit(:pay,:debt,:number,:status,:date,:user_id,:company_id)
   end
 end

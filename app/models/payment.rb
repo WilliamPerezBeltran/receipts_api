@@ -12,7 +12,7 @@
 #
 
 class Payment < ApplicationRecord
-  belongs_to :receipt
+  belongs_to :receipt, optional: true
   has_many :consignations
   has_many :photos
 end
