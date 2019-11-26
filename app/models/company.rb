@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: companies
@@ -10,5 +12,5 @@
 #
 
 class Company < ApplicationRecord
-	has_many :receipts
+  has_many :receipts
 end
