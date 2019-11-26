@@ -1,0 +1,26 @@
+# == Schema Information
+#
+# Table name: consignations
+#
+#  id          :integer          not null, primary key
+#  name        :string
+#  date        :date
+#  observation :string
+#  payment_id  :integer
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
+
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  date: 2019-11-25
+  observation: MyString
+  payment: one
+
+two:
+  name: MyString
+  date: 2019-11-25
+  observation: MyString
+  payment: two

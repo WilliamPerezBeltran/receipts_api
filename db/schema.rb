@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_26_010036) do
+ActiveRecord::Schema.define(version: 2019_11_26_013639) do
 
   create_table "companies", force: :cascade do |t|
     t.string "name"
@@ -19,11 +19,43 @@ ActiveRecord::Schema.define(version: 2019_11_26_010036) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "consignations", force: :cascade do |t|
+    t.string "name"
+    t.date "date"
+    t.string "observation"
+    t.integer "payment_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["payment_id"], name: "index_consignations_on_payment_id"
+  end
+
   create_table "items", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.string "name"
+    t.integer "receipt_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["receipt_id"], name: "index_payments_on_receipt_id"
+  end
+
+  create_table "photos", force: :cascade do |t|
+    t.string "title"
+    t.string "observation"
+    t.string "attachment"
+    t.integer "refund_id"
+    t.integer "consignation_id"
+    t.integer "payment_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["consignation_id"], name: "index_photos_on_consignation_id"
+    t.index ["payment_id"], name: "index_photos_on_payment_id"
+    t.index ["refund_id"], name: "index_photos_on_refund_id"
   end
 
   create_table "receipts", force: :cascade do |t|
@@ -40,6 +72,16 @@ ActiveRecord::Schema.define(version: 2019_11_26_010036) do
     t.index ["user_id"], name: "index_receipts_on_user_id"
   end
 
+  create_table "refunds", force: :cascade do |t|
+    t.integer "value"
+    t.integer "actual_payment"
+    t.integer "actual_debt"
+    t.integer "receipt_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["receipt_id"], name: "index_refunds_on_receipt_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -48,6 +90,12 @@ ActiveRecord::Schema.define(version: 2019_11_26_010036) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "consignations", "payments"
+  add_foreign_key "payments", "receipts"
+  add_foreign_key "photos", "consignations"
+  add_foreign_key "photos", "payments"
+  add_foreign_key "photos", "refunds"
   add_foreign_key "receipts", "companies"
   add_foreign_key "receipts", "users"
+  add_foreign_key "refunds", "receipts"
 end
