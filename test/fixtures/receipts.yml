@@ -1,0 +1,35 @@
+# == Schema Information
+#
+# Table name: receipts
+#
+#  id         :integer          not null, primary key
+#  pay        :integer
+#  debt       :integer
+#  number     :string
+#  status     :string
+#  date       :date
+#  user_id    :integer          not null
+#  company_id :integer          not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  pay: 1
+  debt: 1
+  number: MyString
+  status: MyString
+  date: 2019-11-25
+  user: one
+  company: one
+
+two:
+  pay: 1
+  debt: 1
+  number: MyString
+  status: MyString
+  date: 2019-11-25
+  user: two
+  company: two
