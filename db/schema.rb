@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_26_151009) do
+ActiveRecord::Schema.define(version: 2019_11_26_234152) do
 
   create_table "companies", force: :cascade do |t|
     t.string "name"
@@ -47,12 +47,12 @@ ActiveRecord::Schema.define(version: 2019_11_26_151009) do
   create_table "photos", force: :cascade do |t|
     t.string "title"
     t.string "observation"
-    t.string "attachment"
     t.integer "refund_id"
     t.integer "consignation_id"
     t.integer "payment_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.json "attachments"
     t.index ["consignation_id"], name: "index_photos_on_consignation_id"
     t.index ["payment_id"], name: "index_photos_on_payment_id"
     t.index ["refund_id"], name: "index_photos_on_refund_id"
