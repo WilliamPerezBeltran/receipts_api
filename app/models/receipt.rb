@@ -19,6 +19,6 @@
 class Receipt < ApplicationRecord
   belongs_to :company
   belongs_to :user
-  has_many :payments, required: false
-  has_many :refunds, required: false
+  has_many :payments
+  has_many :refunds
 end
