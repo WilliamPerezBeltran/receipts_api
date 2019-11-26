@@ -13,4 +13,5 @@
 
 class Consignation < ApplicationRecord
   belongs_to :payment
+  has_many :photos
 end

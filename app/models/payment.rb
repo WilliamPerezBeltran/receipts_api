@@ -12,4 +12,5 @@
 class Payment < ApplicationRecord
   belongs_to :receipt
   has_many :consignations
+  has_many :photos
 end

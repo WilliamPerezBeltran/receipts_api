@@ -13,4 +13,5 @@
 
 class Refund < ApplicationRecord
   belongs_to :receipt
+  has_many :photos
 end
