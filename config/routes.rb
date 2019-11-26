@@ -2,6 +2,7 @@
 
 Rails.application.routes.draw do
   resources :items
+  resources :companies, only:[:index,:create,:update,:destroy]
   # get 'receipts/index'
   # resources :registrations, only:[:create,:delete, :update]
   post 'authenticate', to: 'authentication#authenticate'
