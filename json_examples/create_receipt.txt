@@ -1,0 +1,11 @@
+{
+  "receipt": {
+    "pay": "10000",
+    "debt": "2000",
+    "number": "11111111",
+    "date": "26/12/2018",
+    "user_id": "1",
+    "company_id": "2"
+  },
+  "pago_name":"pago_anticipado"
+}
