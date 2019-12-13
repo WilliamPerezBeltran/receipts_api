@@ -22,3 +22,7 @@ Company.create(name: 'Obleas dani')
 Payment.create(name: 'pago_anticipado')
 Payment.create(name: 'pago_contra_entrega')
 Payment.create(name: 'pago_credito')
+
+Company.import('db/seeds_data/proveedores.csv')
+
+
