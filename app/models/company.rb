@@ -68,7 +68,6 @@ class Company < ApplicationRecord
 
 			companies << new_row
 		end
-		binding.pry		
 		Company.bulk_insert values: companies
 		
 	end

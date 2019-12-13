@@ -66,6 +66,8 @@ GEM
     bootsnap (1.4.5)
       msgpack (~> 1.0)
     builder (3.2.3)
+    bulk_insert (1.7.0)
+      activerecord (>= 3.2.0)
     byebug (11.0.1)
     carrierwave (2.0.2)
       activemodel (>= 5.0.0)
@@ -195,6 +197,7 @@ DEPENDENCIES
   annotate
   bcrypt (~> 3.1.7)
   bootsnap (>= 1.4.2)
+  bulk_insert
   byebug
   carrierwave (~> 2.0)
   jwt
