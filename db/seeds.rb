@@ -10,19 +10,8 @@
 
 User.create(name: 'william', email: 'william@gmail.com', password: '123456', password_confirmation: '123456')
 
-Company.create(name: 'Bavaria')
-Company.create(name: 'Pepsi')
-Company.create(name: 'Postobon')
-Company.create(name: 'Microsoft')
-Company.create(name: 'Apple')
-Company.create(name: 'Chevrolet')
-Company.create(name: 'Carrefour')
-Company.create(name: 'Obleas dani')
-
 Payment.create(name: 'pago_anticipado')
 Payment.create(name: 'pago_contra_entrega')
 Payment.create(name: 'pago_credito')
 
 Company.import('db/seeds_data/proveedores.csv')
-
-
