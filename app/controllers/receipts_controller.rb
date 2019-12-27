@@ -16,7 +16,14 @@ class ReceiptsController < ApplicationController
 
       payment = Payment.new(name: params[:receipt_type], receipt_id: @receipt.id)
       @receipt.payments << payment
-      create_image if params[:attachments].present?
+
+
+      if params[:attachments].present?
+        if !create_image
+          render json: { error: "Error en la creación de la foto" }, status: :bad_request
+        end
+        
+      end
 
       render json: @receipt, status: :ok
     else
@@ -36,7 +43,7 @@ class ReceiptsController < ApplicationController
       payment_id: @receipt.payments[0].id,
       refund_id: nil,
       consignation_id: nil
-    )
+      )
   end
 
   private
@@ -65,6 +72,6 @@ class ReceiptsController < ApplicationController
       tempfile: @tempfile,
       content_type: content_type,
       filename: filename
-    )
+      )
   end
 end
