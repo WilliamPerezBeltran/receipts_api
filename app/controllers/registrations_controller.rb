@@ -7,7 +7,7 @@ class RegistrationsController < ApplicationController
     # binding.pry
     @user = User.new(user_params)
     if @user.save
-      render json: {data: true}
+      render json: { data: true }
     else
       render json: { error: 'error en los parametros' }, status: :bad_request
     end

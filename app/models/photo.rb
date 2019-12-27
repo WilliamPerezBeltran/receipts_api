@@ -16,10 +16,10 @@
 #
 
 class Photo < ApplicationRecord
-  belongs_to :refund
-  belongs_to :consignation
-  belongs_to :payment
+  belongs_to :refund, optional: true
+  belongs_to :consignation, optional: true
+  belongs_to :payment, optional: true
 
   # Gema Carrierwave para cargar imagenes
-  mount_uploaders :attachments, AttachmentUploader
+  mount_uploaders :attachments, AttachmentsUploader
 end
