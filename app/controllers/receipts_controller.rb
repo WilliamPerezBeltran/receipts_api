@@ -11,12 +11,27 @@ class ReceiptsController < ApplicationController
     @receipt = Receipt.new(receipt_params)
     @receipt.user_id = current_user.id
     @receipt.company_id = params[:company_id][:id]
-
+    if params[:receipt_type] === "pago_anticipado"
+      @receipt.status = "recibido y cancelado "
+    elsif params[:receipt_type] === "pago_contra_entrega"
+      @receipt.status = "recibido y cancelado "
+    elsif params[:receipt_type] === "pago_credito"
+      @receipt.status = "recibido"
+    elsif params[:receipt_type] === "devolucion"
+      @receipt.status = "recibido"
+    end
     if @receipt.save
 
       payment = Payment.new(name: params[:receipt_type], receipt_id: @receipt.id)
       @receipt.payments << payment
-      create_image if params[:attachments].present?
+
+
+      if params[:attachments].present?
+        if !create_image
+          render json: { error: "Error en la creación de la foto" }, status: :bad_request
+        end
+        
+      end
 
       render json: @receipt, status: :ok
     else
@@ -25,10 +40,8 @@ class ReceiptsController < ApplicationController
   end
 
   def create_image
-    # title =  params[:indicator_event_request][:title]
-    # observation =  params[:indicator_event_request][:observation]
-    title = 'las fotos'
-    observation = 'observaciones preliminares'
+    title =  params[:title_image]
+    observation =  params[:observation_photo]
     params[:attachments] = JSON.parse(params[:attachments])
     photosArray = params[:attachments].map { |item| parse_image_data(item) }
     @photo = Photo.create(
@@ -38,7 +51,7 @@ class ReceiptsController < ApplicationController
       payment_id: @receipt.payments[0].id,
       refund_id: nil,
       consignation_id: nil
-    )
+      )
   end
 
   private
@@ -67,6 +80,6 @@ class ReceiptsController < ApplicationController
       tempfile: @tempfile,
       content_type: content_type,
       filename: filename
-    )
+      )
   end
 end
