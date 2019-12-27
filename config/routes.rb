@@ -14,5 +14,6 @@ Rails.application.routes.draw do
   # get '/all_receipts' => 'receipts#index', defaults: { format: 'json' }
   get '/all_companies' => 'companies#index', defaults: { format: 'json' }
   post '/create_receipt' => 'receipts#create', defaults: { format: 'json' }
+  get '/all_receipts' => 'receipts#index', defaults: { format: 'json' }
   # post '/update_company' => 'companies#updateCompany', defaults: { format: 'json' }
 end
