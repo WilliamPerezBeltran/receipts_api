@@ -25,10 +25,8 @@ class ReceiptsController < ApplicationController
   end
 
   def create_image
-    # title =  params[:indicator_event_request][:title]
-    # observation =  params[:indicator_event_request][:observation]
-    title = 'las fotos'
-    observation = 'observaciones preliminares'
+    title =  params[:title_image]
+    observation =  params[:observation_photo]
     params[:attachments] = JSON.parse(params[:attachments])
     photosArray = params[:attachments].map { |item| parse_image_data(item) }
     @photo = Photo.create(
