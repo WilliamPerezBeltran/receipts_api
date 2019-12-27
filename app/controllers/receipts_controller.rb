@@ -11,7 +11,15 @@ class ReceiptsController < ApplicationController
     @receipt = Receipt.new(receipt_params)
     @receipt.user_id = current_user.id
     @receipt.company_id = params[:company_id][:id]
-
+    if params[:receipt_type] === "pago_anticipado"
+      @receipt.status = "recibido y cancelado "
+    elsif params[:receipt_type] === "pago_contra_entrega"
+      @receipt.status = "recibido y cancelado "
+    elsif params[:receipt_type] === "pago_credito"
+      @receipt.status = "recibido"
+    elsif params[:receipt_type] === "devolucion"
+      @receipt.status = "recibido"
+    end
     if @receipt.save
 
       payment = Payment.new(name: params[:receipt_type], receipt_id: @receipt.id)
