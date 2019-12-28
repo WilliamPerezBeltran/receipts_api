@@ -2,7 +2,23 @@
 
 class ReceiptsController < ApplicationController
   def index
-    @receipts = Receipt.all
+    # @receipts = Receipt.all
+    @receipts =Receipt.all.order(id: :asc).includes( :company, :user,).as_json(
+        include: {
+          company: { only: [:name,:phone,:email] },
+          user: { only: [:name,:email] },
+        }, except: [:created_at, :updated_at])
+    # @receipts = Receipt.all.includes(:company, :user)
+
+
+    
+     # render json: Receipt.all.order(id: :asc).includes( :company, :user,).as_json(
+     #    include: {
+     #      company: { only: [:name,:phone,:email] },
+     #      user: { only: [:name,:email] },
+     #    }, except: [:created_at, :updated_at])
+
+    # binding.pry
     render json: @receipts
   end
 
