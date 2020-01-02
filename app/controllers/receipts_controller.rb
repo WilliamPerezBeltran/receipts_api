@@ -68,12 +68,13 @@ class ReceiptsController < ApplicationController
       refund_id: nil,
       consignation_id: nil
       )
+    @receipt.update(photo: @photo.attachments)
   end
 
   private
 
   def receipt_params
-    params.require(:receipt).permit(:pay, :debt, :number, :status, :date, :user_id, :company_id, :pay_invoice)
+    params.require(:receipt).permit(:pay, :debt, :number, :status, :date, :user_id, :company_id, :pay_invoice, :receipt_type)
   end
 
   def parse_image_data(data)
