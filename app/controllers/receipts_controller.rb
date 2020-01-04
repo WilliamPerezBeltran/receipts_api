@@ -2,23 +2,12 @@
 
 class ReceiptsController < ApplicationController
   def index
-    # @receipts = Receipt.all
     @receipts =Receipt.all.order(id: :asc).includes( :company, :user,).as_json(
-        include: {
-          company: { only: [:name,:phone,:email] },
-          user: { only: [:name,:email] },
-        }, except: [:created_at, :updated_at])
-    # @receipts = Receipt.all.includes(:company, :user)
+      include: {
+        company: { only: [:name,:phone,:email] },
+        user: { only: [:name,:email] },
+      }, except: [:created_at, :updated_at])
 
-
-    
-     # render json: Receipt.all.order(id: :asc).includes( :company, :user,).as_json(
-     #    include: {
-     #      company: { only: [:name,:phone,:email] },
-     #      user: { only: [:name,:email] },
-     #    }, except: [:created_at, :updated_at])
-
-    # binding.pry
     render json: @receipts
   end
 
@@ -69,6 +58,19 @@ class ReceiptsController < ApplicationController
       consignation_id: nil
       )
     @receipt.update(photo: @photo.attachments)
+  end
+
+  def find_by_id
+    @receipt = Receipt.find(params[:receipt_id])
+    @user = User.where(id: @receipt.user_id).select(:name, :email).first
+    @company = Company.where(id: @receipt.company_id).select(:name).first
+
+    if @receipt
+      render json: {receipt: @receipt, user: @user, company: @company}, status: :ok
+    else
+      render json: { error: "Error en la peticion del receipt" }, status: :bad_request
+    end
+    
   end
 
   private

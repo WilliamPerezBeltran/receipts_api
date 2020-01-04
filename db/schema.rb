@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_01_221325) do
+ActiveRecord::Schema.define(version: 2020_01_03_170052) do
 
   create_table "companies", force: :cascade do |t|
     t.string "name"
@@ -33,6 +33,11 @@ ActiveRecord::Schema.define(version: 2020_01_01_221325) do
     t.integer "payment_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "type_consignation"
+    t.integer "credit"
+    t.integer "pay"
+    t.integer "debt"
+    t.json "photo"
     t.index ["payment_id"], name: "index_consignations_on_payment_id"
   end
 
