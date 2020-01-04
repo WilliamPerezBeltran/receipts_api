@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  # get 'consignations/create'
   resources :items
   resources :companies, only: %i[index create update destroy]
   resources :receipts, only: %i[index create update destroy]
@@ -15,5 +16,7 @@ Rails.application.routes.draw do
   get '/all_companies' => 'companies#index', defaults: { format: 'json' }
   post '/create_receipt' => 'receipts#create', defaults: { format: 'json' }
   get '/all_receipts' => 'receipts#index', defaults: { format: 'json' }
+  post '/find_receipt_by_id' => 'receipts#find_by_id', defaults: { format: 'json' }
+  post '/create_consignation' => 'consignations#create', defaults: { format: 'json' }
   # post '/update_company' => 'companies#updateCompany', defaults: { format: 'json' }
 end
