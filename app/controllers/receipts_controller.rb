@@ -73,6 +73,18 @@ class ReceiptsController < ApplicationController
     
   end
 
+  def get_consignations
+    @receipt = Receipt.find(params[:receipt_id])
+    @payment = @receipt.payments.first
+    @consignations = @payment.consignations
+    if @receipt
+      render json: @consignations, status: :ok
+    else
+      render json: { error: "Error en la peticion de get_consignations" }, status: :bad_request
+    end
+
+  end
+
   private
 
   def receipt_params
