@@ -17,7 +17,9 @@ Rails.application.routes.draw do
   post '/create_receipt' => 'receipts#create', defaults: { format: 'json' }
   get '/all_receipts' => 'receipts#index', defaults: { format: 'json' }
   post '/find_receipt_by_id' => 'receipts#find_by_id', defaults: { format: 'json' }
+  post '/create_payment' => 'payments#create', defaults: { format: 'json' }
   post '/create_consignation' => 'consignations#create', defaults: { format: 'json' }
   post '/get_consignation_to_show_receipt' => 'receipts#get_consignations', defaults: { format: 'json' }
+  post '/get_payments_to_show_receipt' => 'payments#get_payments', defaults: { format: 'json' }
   # post '/update_company' => 'companies#updateCompany', defaults: { format: 'json' }
 end

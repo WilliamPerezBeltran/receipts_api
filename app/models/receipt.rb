@@ -17,6 +17,7 @@
 #  pay_invoice  :integer
 #  receipt_type :string
 #  photo        :json
+#  observation  :string
 #
 
 class Receipt < ApplicationRecord

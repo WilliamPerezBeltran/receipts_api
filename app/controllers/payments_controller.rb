@@ -1,47 +1,78 @@
-class ConsignationsController < ApplicationController
-	def create
-		# binding.pry
-		@consignation = Consignation.new(consignation_params)
-		@receipt = Receipt.find(params[:receipt_id])
-		@payment_id = @receipt.payments[0].id
-		@consignation.payment_id = @payment_id
+class PaymentsController < ApplicationController
 
-		if @consignation.save
+	def create
+		@payment = Payment.new(payment_params)
+		@payment.name = current_user.name
+		@payment.date = params[:payment][:date]
+		@receipt = Receipt.find( params[:payment][:receipt_id])
+
+		# if params[:payment][:consignation_type].present?
+			
+		# end
+
+		
+
+
+		# @payment. 
+		# whoPay = 
+
+
+		# @receipt = Receipt.find(params[:receipt_id])
+		# @payment_id = @receipt.payments[0].id
+		# @consignation.payment_id = @payment_id
+
+		if @payment.save
+			# binding.pry
+
 			if params[:photo].present?
 				if !create_image
 					render json: { error: "Error en la creación de la foto" }, status: :bad_request
 				end
-
 			end
 			# binding.pry
 
-			if params[:consignation][:debt].to_i == 0
-				@receipt.update(status: "recibido y cancelado", pay: params[:consignation][:pay], debt: params[:consignation][:debt])
+			if params[:payment][:debt].to_i == 0
+				# binding.pry
+				@receipt.update(status: "Pagado")
+				# @receipt.update(status: "recibido y cancelado", pay: params[:consignation][:pay], debt: params[:consignation][:debt])
 			end
+			# binding.pry
 		end
 
 		render json: @receipt, status: :ok
 	end
 
+
 	def create_image
-		title =  params[:title_image]
-		observation =  params[:observation_photo]
+		title =  ""
+		# title =  params[:title_image]
+		observation =  ""
+		# observation =  params[:observation_photo]
 		params[:photo] = JSON.parse(params[:photo])
 		photosArray = params[:photo].map { |item| parse_image_data(item) }
 		@photo = Photo.create(
 			title: title,
 			observation: observation,
 			attachments: photosArray,
-			payment_id: @payment_id,
+			payment_id: @payment.id,
 			refund_id: nil,
-			consignation_id: @consignation.id
+			consignation_id: nil,
 			)
-		@consignation.update(photo: @photo.attachments)
+		@payment.update(photo: @photo.attachments)
 	end
 
+	def get_payments
+		@receipt = Receipt.find(params[:receipt_id])
+		payments = @receipt.payments
+
+		render json: payments, status: :ok
+
+	end
+
+
 	private
-	def consignation_params
-		params.require(:consignation).permit(:name, :date, :observation, :payment_id, :type_consignation, :credit, :pay, :debt)
+	def payment_params
+		params.require(:payment).permit(:name, :receipt_id, :total_payment, :pay, :debt, :observation,:consignation_type)
 	end
 	def parse_image_data(data)
 		filename = data[:fileName]
@@ -65,5 +96,8 @@ class ConsignationsController < ApplicationController
 	    	filename: filename
 	    	)
 	end
-end
 
+
+
+
+end

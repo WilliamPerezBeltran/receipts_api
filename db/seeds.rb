@@ -10,8 +10,8 @@
 
 User.create(name: 'william', email: 'william@gmail.com', password: '123456', password_confirmation: '123456')
 
-Payment.create(name: 'pago_anticipado')
-Payment.create(name: 'pago_contra_entrega')
-Payment.create(name: 'pago_credito')
+# Payment.create(name: 'pago_anticipado')
+# Payment.create(name: 'pago_contra_entrega')
+# Payment.create(name: 'pago_credito')
 
 Company.import('db/seeds_data/proveedores.csv')

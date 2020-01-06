@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_03_170052) do
+ActiveRecord::Schema.define(version: 2020_01_06_214850) do
 
   create_table "companies", force: :cascade do |t|
     t.string "name"
@@ -53,6 +53,13 @@ ActiveRecord::Schema.define(version: 2020_01_03_170052) do
     t.integer "receipt_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "total_payment"
+    t.integer "pay"
+    t.integer "debt"
+    t.string "observation"
+    t.date "date"
+    t.json "photo"
+    t.string "consignation_type"
     t.index ["receipt_id"], name: "index_payments_on_receipt_id"
   end
 
@@ -65,8 +72,10 @@ ActiveRecord::Schema.define(version: 2020_01_03_170052) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.json "attachments"
+    t.integer "receipt_id"
     t.index ["consignation_id"], name: "index_photos_on_consignation_id"
     t.index ["payment_id"], name: "index_photos_on_payment_id"
+    t.index ["receipt_id"], name: "index_photos_on_receipt_id"
     t.index ["refund_id"], name: "index_photos_on_refund_id"
   end
 
@@ -83,6 +92,7 @@ ActiveRecord::Schema.define(version: 2020_01_03_170052) do
     t.integer "pay_invoice"
     t.string "receipt_type"
     t.json "photo"
+    t.string "observation"
     t.index ["company_id"], name: "index_receipts_on_company_id"
     t.index ["user_id"], name: "index_receipts_on_user_id"
   end
@@ -109,6 +119,7 @@ ActiveRecord::Schema.define(version: 2020_01_03_170052) do
   add_foreign_key "payments", "receipts"
   add_foreign_key "photos", "consignations"
   add_foreign_key "photos", "payments"
+  add_foreign_key "photos", "receipts"
   add_foreign_key "photos", "refunds"
   add_foreign_key "receipts", "companies"
   add_foreign_key "receipts", "users"
