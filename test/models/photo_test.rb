@@ -13,6 +13,7 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  attachments     :json
+#  receipt_id      :integer
 #
 
 require 'test_helper'

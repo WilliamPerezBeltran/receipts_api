@@ -11,6 +11,10 @@
 #  receipt_id     :integer
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
+#  date           :date
+#  refund         :integer
+#  observations   :string
+#  user_refund    :string
 #
 
 class Refund < ApplicationRecord

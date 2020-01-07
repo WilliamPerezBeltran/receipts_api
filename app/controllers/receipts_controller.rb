@@ -2,11 +2,13 @@
 
 class ReceiptsController < ApplicationController
   def index
-    @receipts =Receipt.all.order(id: :asc).includes( :company, :user,).as_json(
+    @receipts =Receipt.all.order(id: :desc).includes( :company, :user,).as_json(
       include: {
         company: { only: [:name,:phone,:email] },
         user: { only: [:name,:email] },
       }, except: [:created_at, :updated_at])
+
+    # binding.pry
 
     render json: @receipts
   end
@@ -16,19 +18,26 @@ class ReceiptsController < ApplicationController
     @receipt = Receipt.new(receipt_params)
     @receipt.user_id = current_user.id
     @receipt.company_id = params[:company_id][:id]
-    if params[:receipt_type] === "pago_anticipado"
-      @receipt.status = "recibido y cancelado "
-    elsif params[:receipt_type] === "pago_contra_entrega"
-      @receipt.status = "recibido y cancelado "
-    elsif params[:receipt_type] === "pago_credito"
-      @receipt.status = "recibido"
-    elsif params[:receipt_type] === "devolucion"
-      @receipt.status = "recibido"
-    end
+
+    @receipt.status = "Pendiente"
+
+
+
+    # if params[:receipt_type] === "pago_anticipado"
+    #   @receipt.status = "recibido y cancelado "
+    # elsif params[:receipt_type] === "pago_contra_entrega"
+    #   @receipt.status = "recibido y cancelado "
+    # elsif params[:receipt_type] === "pago_credito"
+    #   @receipt.status = "recibido"
+    # elsif params[:receipt_type] === "devolucion"
+    #   @receipt.status = "recibido"
+    # end
+
+
     if @receipt.save
 
-      payment = Payment.new(name: params[:receipt_type], receipt_id: @receipt.id)
-      @receipt.payments << payment
+      # payment = Payment.new(name: params[:receipt_type], receipt_id: @receipt.id)
+      # @receipt.payments << payment
 
 
       if params[:attachments].present?
@@ -45,17 +54,20 @@ class ReceiptsController < ApplicationController
   end
 
   def create_image
-    title =  params[:title_image]
-    observation =  params[:observation_photo]
+    title =  ""
+    # title =  params[:title_image]
+    observation =  ""
+    # observation =  params[:observation_photo]
     params[:attachments] = JSON.parse(params[:attachments])
     photosArray = params[:attachments].map { |item| parse_image_data(item) }
     @photo = Photo.create(
       title: title,
       observation: observation,
       attachments: photosArray,
-      payment_id: @receipt.payments[0].id,
+      payment_id: nil,
       refund_id: nil,
-      consignation_id: nil
+      consignation_id: nil,
+      receipt_id: @receipt.id
       )
     @receipt.update(photo: @photo.attachments)
   end
@@ -68,7 +80,7 @@ class ReceiptsController < ApplicationController
     if @receipt
       render json: {receipt: @receipt, user: @user, company: @company}, status: :ok
     else
-      render json: { error: "Error en la peticion del receipt" }, status: :bad_request
+      render json: { error: "Error en la peticion del find_by_id" }, status: :bad_request
     end
     
   end
@@ -88,7 +100,7 @@ class ReceiptsController < ApplicationController
   private
 
   def receipt_params
-    params.require(:receipt).permit(:pay, :debt, :number, :status, :date, :user_id, :company_id, :pay_invoice, :receipt_type)
+    params.require(:receipt).permit(:pay, :debt, :number, :status, :date, :user_id, :company_id, :pay_invoice, :receipt_type, :observation)
   end
 
   def parse_image_data(data)

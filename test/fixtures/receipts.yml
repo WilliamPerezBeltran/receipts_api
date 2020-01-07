@@ -15,6 +15,7 @@
 #  pay_invoice  :integer
 #  receipt_type :string
 #  photo        :json
+#  observation  :string
 #
 
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
