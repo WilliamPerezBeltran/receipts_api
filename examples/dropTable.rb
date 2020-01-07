@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DropPhotos < ActiveRecord::Migration[6.0]
   def up
     drop_table :photos

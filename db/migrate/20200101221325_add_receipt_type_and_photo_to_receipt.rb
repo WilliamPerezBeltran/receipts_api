@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddReceiptTypeAndPhotoToReceipt < ActiveRecord::Migration[6.0]
   def change
     add_column :receipts, :receipt_type, :string

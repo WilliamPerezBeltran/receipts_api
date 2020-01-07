@@ -16,7 +16,6 @@ class CompaniesController < ApplicationController
   end
 
   def update
-    # binding.pry
     @company = Company.find(params[:id])
     if @company.update(company_params)
       render json: { msg: 'compañia actualizada satisfactoriamente', company: @company }, status: :ok
@@ -40,5 +39,3 @@ class CompaniesController < ApplicationController
     params.require(:company).permit(:name, :type_identification, :identification, :address, :phone, :email, :bank, :type_account, :account_number)
   end
 end
-
-x
