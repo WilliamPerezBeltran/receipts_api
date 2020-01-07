@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_06_214850) do
+ActiveRecord::Schema.define(version: 2020_01_07_141940) do
 
   create_table "companies", force: :cascade do |t|
     t.string "name"
@@ -104,6 +104,10 @@ ActiveRecord::Schema.define(version: 2020_01_06_214850) do
     t.integer "receipt_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.date "date"
+    t.integer "refund"
+    t.string "observations"
+    t.string "user_refund"
     t.index ["receipt_id"], name: "index_refunds_on_receipt_id"
   end
 

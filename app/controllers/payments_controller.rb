@@ -72,7 +72,7 @@ class PaymentsController < ApplicationController
 
 	private
 	def payment_params
-		params.require(:payment).permit(:name, :receipt_id, :total_payment, :pay, :debt, :observation,:consignation_type)
+		params.require(:payment).permit(:name, :receipt_id, :total_payment, :pay, :debt, :observation,:consignation_type, :date)
 	end
 	def parse_image_data(data)
 		filename = data[:fileName]
