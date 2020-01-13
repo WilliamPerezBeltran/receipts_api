@@ -24,5 +24,6 @@ Rails.application.routes.draw do
   post '/get_consignation_to_show_receipt' => 'receipts#get_consignations', defaults: { format: 'json' }
   post '/get_payments_to_show_receipt' => 'payments#get_payments', defaults: { format: 'json' }
   post '/get_all_refunds' => 'refunds#get_refunds', defaults: { format: 'json' }
+  get '/all_users' => 'users#all_user_for_filter', defaults: { format: 'json' }
   # post '/update_company' => 'companies#updateCompany', defaults: { format: 'json' }
 end
