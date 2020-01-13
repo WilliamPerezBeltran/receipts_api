@@ -6,6 +6,17 @@ class CompaniesController < ApplicationController
     render json: @companies
   end
 
+  def all_companies_for_filter
+    # binding.pry
+    @companies = Company.select("id,name")
+    @all_companies= @companies.map{|value| {id: value[:id], label: value[:name], value: value[:name] } }
+
+    render json: @all_companies
+  end
+
+
+  
+
   def create
     @company = Company.new(company_params)
     if @company.save
