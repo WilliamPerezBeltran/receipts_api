@@ -2,14 +2,39 @@
 
 class ReceiptsController < ApplicationController
   def index
-    @receipts = Receipt.all.order(id: :desc).includes(:company, :user).as_json(
-      include: {
-        company: { only: %i[name phone email] },
-        user: { only: %i[name email] }
-      }, except: %i[created_at updated_at]
-    )
+    # @receipts = Receipt.all.order(id: :desc).includes(:company, :user).as_json(
+    #   include: {
+    #     company: { only: %i[name phone email] },
+    #     user: { only: %i[name email] }
+    #   }, except: %i[created_at updated_at]
+    #   )
 
-    render json: @receipts
+    # render json: @receipts
+
+    params.slice(:number, :status, :date, :user_id, :company_id, :receipt_type)
+    get_params=params.slice(:number, :status, :date, :user_id, :company_id, :receipt_type)
+    final_params = {}
+    get_params.each { |key, value| (value == "null" || value == "undefined" )?final_params[key]=nil : final_params[key]=value }
+    final_params.delete_if { |_k, v| v.nil? }
+
+    if final_params.values(&:value).uniq.all? &:blank?
+      @receipts = Receipt.all.order(id: :desc).includes(:company, :user).as_json(
+        include: {
+          company: { only: %i[name phone email] },
+          user: { only: %i[name email] }
+        }, except: %i[created_at updated_at]
+        )
+      render json: @receipts
+    else
+      @receipts = Receipt.where(final_params).includes(:company, :user).as_json(
+        include: {
+          company: { only: %i[name phone email] },
+          user: { only: %i[name email] }
+        }, except: %i[created_at updated_at]
+        )
+      render json: @receipts
+    end
+
   end
 
   def create
@@ -48,7 +73,7 @@ class ReceiptsController < ApplicationController
       refund_id: nil,
       consignation_id: nil,
       receipt_id: @receipt.id
-    )
+      )
     @receipt.update(photo: @photo.attachments)
   end
 
@@ -101,6 +126,6 @@ class ReceiptsController < ApplicationController
       tempfile: @tempfile,
       content_type: content_type,
       filename: filename
-    )
+      )
   end
 end

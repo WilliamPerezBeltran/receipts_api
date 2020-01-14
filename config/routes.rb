@@ -13,10 +13,10 @@ Rails.application.routes.draw do
   post '/signup' => 'registrations#create', defaults: { format: 'json' }
   delete '/delete_user' => 'registrations#delete', defaults: { format: 'json' }
   put '/update_user' => 'registrations#update', defaults: { format: 'json' }
-  # get '/all_receipts' => 'receipts#index', defaults: { format: 'json' }
   get '/all_companies' => 'companies#index', defaults: { format: 'json' }
   post '/create_receipt' => 'receipts#create', defaults: { format: 'json' }
-  get '/all_receipts' => 'receipts#index', defaults: { format: 'json' }
+  # get '/all_receipts' => 'receipts#index', defaults: { format: 'json' }
+  post '/all_receipts' => 'receipts#index', defaults: { format: 'json' }
   post '/find_receipt_by_id' => 'receipts#find_by_id', defaults: { format: 'json' }
   post '/create_payment' => 'payments#create', defaults: { format: 'json' }
   post '/create_consignation' => 'consignations#create', defaults: { format: 'json' }
