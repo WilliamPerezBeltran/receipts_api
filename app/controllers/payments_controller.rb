@@ -9,6 +9,9 @@ class PaymentsController < ApplicationController
 
     if @payment.save
 
+      new_pay_invoice = @payment.total_payment - @payment.pay
+      @receipt.update(pay_invoice: new_pay_invoice)
+
       if params[:photo].present?
         unless create_image
           render json: { error: 'Error en la creación de la foto' }, status: :bad_request
