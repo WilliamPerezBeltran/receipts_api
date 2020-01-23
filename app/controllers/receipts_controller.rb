@@ -100,6 +100,32 @@ class ReceiptsController < ApplicationController
     end
   end
 
+  def save_image_to_cropping
+    params[:image] = JSON.parse(params[:image])
+    image = parse_image_data(params[:image])
+    @photo = Photo.create(
+      title: "image_to_crop",
+      observation: "",
+      attachments: [image],
+      payment_id: nil,
+      refund_id: nil,
+      consignation_id: nil,
+      receipt_id: nil,
+      )
+    if @photo
+       image = RTesseract.new("public" + @photo.attachments[0].url)
+        begin
+           result = image.to_s.strip.tr("\n","").tr(" ","")
+           @photo.destroy
+           render json: { result: result }, status: :ok
+        rescue Exception => e
+         render json: { error: 'Error en el extractor de imagen ' }, status: :bad_request
+        end
+    else
+      render json: { error: 'Error en la imagen ' }, status: :bad_request
+    end
+  end
+
   private
 
   def receipt_params
