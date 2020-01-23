@@ -23,3 +23,7 @@ Things you may want to cover:
 
 * ...
 # receipts_api
+
+*en el servidor toca instalar esto 
+*You should firstly install tesseract-ocr like this:
+*on Linux: sudo apt-get install tesseract-ocr para que funcione el stractor de texto

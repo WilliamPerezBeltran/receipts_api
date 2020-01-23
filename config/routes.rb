@@ -27,4 +27,5 @@ Rails.application.routes.draw do
   get '/all_users' => 'users#all_user_for_filter', defaults: { format: 'json' }
   get '/all_companies_for_filter' => 'companies#all_companies_for_filter', defaults: { format: 'json' }
   # post '/update_company' => 'companies#updateCompany', defaults: { format: 'json' }
+  post '/cropping_image' => 'receipts#save_image_to_cropping', defaults: { format: 'json' }
 end
