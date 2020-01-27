@@ -19,6 +19,7 @@
 #
 
 class Company < ApplicationRecord
+  has_many :receipts
   require 'csv'
 
   def self.import(file_path)
