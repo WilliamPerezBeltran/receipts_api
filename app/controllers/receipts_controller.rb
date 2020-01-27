@@ -12,9 +12,9 @@ class ReceiptsController < ApplicationController
     # render json: @receipts
 
     params.slice(:number, :status, :date, :user_id, :company_id, :receipt_type)
-    get_params=params.slice(:number, :status, :date, :user_id, :company_id, :receipt_type)
+    get_params = params.slice(:number, :status, :date, :user_id, :company_id, :receipt_type)
     final_params = {}
-    get_params.each { |key, value| (value == "null" || value == "undefined" )?final_params[key]=nil : final_params[key]=value }
+    get_params.each { |key, value| value == 'null' || value == 'undefined' ? final_params[key] = nil : final_params[key] = value }
     final_params.delete_if { |_k, v| v.nil? }
 
     if final_params.values(&:value).uniq.all? &:blank?
@@ -23,7 +23,7 @@ class ReceiptsController < ApplicationController
           company: { only: %i[name phone email] },
           user: { only: %i[name email] }
         }, except: %i[created_at updated_at]
-        )
+      )
       render json: @receipts
     else
       @receipts = Receipt.where(final_params).includes(:company, :user).as_json(
@@ -31,10 +31,9 @@ class ReceiptsController < ApplicationController
           company: { only: %i[name phone email] },
           user: { only: %i[name email] }
         }, except: %i[created_at updated_at]
-        )
+      )
       render json: @receipts
     end
-
   end
 
   def create
@@ -73,7 +72,7 @@ class ReceiptsController < ApplicationController
       refund_id: nil,
       consignation_id: nil,
       receipt_id: @receipt.id
-      )
+    )
     @receipt.update(photo: @photo.attachments)
   end
 
@@ -104,23 +103,23 @@ class ReceiptsController < ApplicationController
     params[:image] = JSON.parse(params[:image])
     image = parse_image_data(params[:image])
     @photo = Photo.create(
-      title: "image_to_crop",
-      observation: "",
+      title: 'image_to_crop',
+      observation: '',
       attachments: [image],
       payment_id: nil,
       refund_id: nil,
       consignation_id: nil,
-      receipt_id: nil,
-      )
+      receipt_id: nil
+    )
     if @photo
-       image = RTesseract.new("public" + @photo.attachments[0].url)
-        begin
-           result = image.to_s.strip.tr("\n","").tr(" ","")
-           @photo.destroy
-           render json: { result: result }, status: :ok
-        rescue Exception => e
-         render json: { error: 'Error en el extractor de imagen ' }, status: :bad_request
-        end
+      image = RTesseract.new('public' + @photo.attachments[0].url)
+      begin
+        result = image.to_s.strip.tr("\n", '').tr(' ', '')
+        @photo.destroy
+        render json: { result: result }, status: :ok
+      rescue Exception => e
+        render json: { error: 'Error en el extractor de imagen ' }, status: :bad_request
+      end
     else
       render json: { error: 'Error en la imagen ' }, status: :bad_request
     end
@@ -152,6 +151,6 @@ class ReceiptsController < ApplicationController
       tempfile: @tempfile,
       content_type: content_type,
       filename: filename
-      )
+    )
   end
 end

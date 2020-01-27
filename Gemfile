@@ -29,8 +29,8 @@ gem 'bulk_insert'
 gem 'carrierwave', '~> 2.0'
 gem 'jwt'
 gem 'rack-cors'
-gem 'simple_command'
 gem 'rtesseract'
+gem 'simple_command'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
