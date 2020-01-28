@@ -38,6 +38,6 @@ class AuthenticateUser
     return user if user&.authenticate(password)
 
     errors.add :user_authentication, 'invalid credentials'
-    nil
+    # nil
   end
 end
