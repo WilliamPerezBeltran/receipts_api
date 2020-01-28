@@ -20,6 +20,11 @@ class AuthenticateUser
     puts "user.email"
     puts user.email
     if user
+      puts "*************enttro a user ****************"
+      puts "eso quiere decir user exists"
+      puts user
+      puts "************************JsonWebToken************************"
+      puts JsonWebToken.encode(user_id: user.id, user_name: user.name, user_email: user.email)
       JsonWebToken.encode(user_id: user.id, user_name: user.name, user_email: user.email)
     end
   end
