@@ -42,14 +42,14 @@ class Company < ApplicationRecord
       account_number = row['account_number']
 
       row['type_identification'].nil? ? type_identification = '' : type_identification = type_identification.to_s.downcase
-      row['identification'].nil? ? identification = 0 : identification
+      row['identification'].nil? ? identification = '' : identification
       row['name'].nil? ? name = '' : name = name.to_s.downcase.downcase.squeeze(' ').gsub(/\s+$/, '')
       row['address'].nil? ? address = '' : address = address.to_s.downcase.squeeze(' ').gsub(/\s+$/, '')
       phone = row['phone'].nil? ? '' : phone.to_s
       email = row['email'].nil? ? '' : email.to_s.downcase
       bank = row['bank'].nil? ? '' : bank.to_s.downcase
       row['type_account'].nil? ? type_account = '' : type_account = type_account.to_s.downcase
-      row['account_number'].nil? ? account_number = 0 : account_number
+      row['account_number'].nil? ? account_number = '' : account_number
 
       new_row = {
         type_identification: type_identification,

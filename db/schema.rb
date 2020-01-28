@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_07_141940) do
+ActiveRecord::Schema.define(version: 2020_01_28_000352) do
 
   create_table "companies", force: :cascade do |t|
     t.string "name"
@@ -18,12 +18,12 @@ ActiveRecord::Schema.define(version: 2020_01_07_141940) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "type_identification"
-    t.integer "identification"
+    t.string "identification"
     t.string "address"
     t.string "email"
     t.string "bank"
     t.string "type_account"
-    t.integer "account_number"
+    t.string "account_number"
   end
 
   create_table "consignations", force: :cascade do |t|
