@@ -10,6 +10,8 @@ class AuthenticationController < ApplicationController
   	puts "params[:password] "
   	puts params[:password] 
     command = AuthenticateUser.call(params[:email], params[:password])
+    puts "----------------command ----------------"
+  	puts command
     puts "----------------command.success? ----------------"
   	puts command.success?
 
