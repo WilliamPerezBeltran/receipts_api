@@ -10,6 +10,8 @@ class AuthenticationController < ApplicationController
   	puts "params[:password] "
   	puts params[:password] 
     command = AuthenticateUser.call(params[:email], params[:password])
+    puts "----------------command.success? ----------------"
+  	puts command.success?
 
     if command.success?
       render json: { auth_token: command.result }
