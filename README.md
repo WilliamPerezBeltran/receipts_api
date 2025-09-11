@@ -1,29 +1,86 @@
-# README
+# receipts\_api
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+**Public Repository – Developed by William Pérez Beltrán**
 
-Things you may want to cover:
+`receipts_api` is a Ruby on Rails API application for managing receipts, payments, and photos. The API includes OCR text extraction functionality and integrates with Tesseract OCR for text recognition from images.
 
-* Ruby version
+## Features
 
-* System dependencies
+* Create and manage receipts with associated payments and photos
+* Text extraction using **Tesseract OCR**
+* PostgreSQL or SQLite support for development
+* RESTful API endpoints for receipt management
+* Example JSON responses in `json_examples`
 
-* Configuration
+## Ruby Version
 
-* Database creation
+* Ruby 3.x (as specified in `.ruby-version`)
 
-* Database initialization
+## System Dependencies
 
-* How to run the test suite
+* Rails 7.x
+* Tesseract OCR (for text extraction)
 
-* Services (job queues, cache servers, search engines, etc.)
+### Installing Tesseract OCR
 
-* Deployment instructions
+On Linux:
 
-* ...
-# receipts_api
+```bash
+sudo apt-get install tesseract-ocr
+```
 
-*en el servidor toca instalar esto 
-*You should firstly install tesseract-ocr like this:
-*on Linux: sudo apt-get install tesseract-ocr para que funcione el stractor de texto
+On MacOS (with Homebrew):
+
+```bash
+brew install tesseract
+```
+
+## Configuration
+
+* Configure database in `config/database.yml`
+* Supports PostgreSQL for production and SQLite for development
+
+## Database Setup
+
+```bash
+rails db:create
+rails db:migrate
+rails db:seed # optional
+```
+
+## Running the Test Suite
+
+```bash
+rspec
+# or
+rails test
+```
+
+## Running the API Server
+
+```bash
+rails server
+```
+
+The API will be available at `http://localhost:3000`
+
+## Services
+
+* Tesseract OCR for text extraction
+* Rails ActiveJob (optional) for background tasks
+
+## Deployment Instructions
+
+* Make sure PostgreSQL is installed on the production server
+* Set environment variables for database credentials
+* Precompile assets if needed:
+
+```bash
+rails assets:precompile
+```
+
+* Start the server using `rails server` or a web server like Puma or Passenger
+
+## Author
+
+**William Pérez Beltrán**
